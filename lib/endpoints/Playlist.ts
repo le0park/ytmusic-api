@@ -143,6 +143,7 @@ export const addToPlaylist = async (
   args: {
     userID?: string
     authUser?: number
+    canDuplicate?: boolean
   },
   ids: string[],
   playlistId: string
@@ -158,8 +159,14 @@ export const addToPlaylist = async (
   body.playlistId = playlistId
   if (args.userID) body.context.user.onBehalfOfUser = args.userID
   body.actions = []
+
+  const bodyActionOption: any = {};
+  if (args.canDuplicate) {
+    bodyActionOption.dedupeOption = 'DEDUPE_OPTION_SKIP';
+  }
+
   for (let id of ids) {
-    body.actions.push({ action: 'ACTION_ADD_VIDEO', addedVideoId: id })
+    body.actions.push({ action: 'ACTION_ADD_VIDEO', addedVideoId: id, ...bodyActionOption })
   }
   const response = await utils.sendRequest(cookie, {
     body,

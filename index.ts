@@ -42,8 +42,8 @@ export class YTMUSIC {
 
   getPlaylist = async (id: string, limit?: number) =>
     await Playlist.getPlaylist(this.cookie, this, id, limit)
-  addToPlaylist = async (ids: string[], playlistId: string) =>
-    await Playlist.addToPlaylist(this.cookie, this, ids, playlistId)
+  addToPlaylist = async (ids: string[], playlistId: string, canDuplicate?: boolean) =>
+    await Playlist.addToPlaylist(this.cookie, {...this, canDuplicate}, ids, playlistId)
   /**
    * Returns Full HomePage
    *
