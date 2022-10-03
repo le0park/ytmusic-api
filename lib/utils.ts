@@ -3,7 +3,6 @@ import cookie from 'cookie'
  * @ignore
  */
 const sha1 = require('sha1')
-import fetch from 'node-fetch'
 import contextJSON from './context.json'
 import headersJSON from './headers.json'
 /**
